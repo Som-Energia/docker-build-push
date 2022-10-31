@@ -6,19 +6,22 @@ def build_push_docker_image(moll, dockerfile_path, registry_tag):
     '''
     moll: e.g. http://moll.somenergia.lan:2375/
     registry_tag: registry.somenergia.coop:5000/somenergia-something:latest
-    
+
     assumes that you've logged in at least once so that you have the login credentials
     under ~/.docker/config.json
     '''
 
     client = docker.DockerClient(base_url=moll)
-    
+
+    # TODO push :latest and date, sha or something to pin the requirements version and detect image registry changes
+
     r = client.images.build(path=dockerfile_path, tag=registry_tag)
     print(r)
-    
+
     print("push image to registry")
     r = client.api.push(registry_tag)
     print(r)
+    return r
 
 
 if __name__ == '__main__':
