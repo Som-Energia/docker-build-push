@@ -15,7 +15,7 @@ def build_push_docker_image(moll, dockerfile_path, registry_tag):
 
     # TODO push :latest and date, sha or something to pin the requirements version and detect image registry changes
 
-    r = client.images.build(path=dockerfile_path, tag=registry_tag)
+    r = client.images.build(path=dockerfile_path, tag=registry_tag,nocache=True)
     print(r)
 
     print("push image to registry")
